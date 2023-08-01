@@ -56,18 +56,16 @@ const InputField = (props) => {
     } else if (fieldProperties.fieldType === "password") {
       return "Enter password";
     } else if (fieldProperties.fieldType === "fullName") {
-      return "Enter Full Name";
-    } else if (fieldProperties.fieldType === "costumerName") {
-      return "Enter Costumer Name";
-    } else if (fieldProperties.fieldType === "problem") {
-      return "Enter Problem";
-    } else if (fieldProperties.fieldType === "address") {
-      return "Enter Address";
-    } else if (fieldProperties.fieldType === "postal") {
-      return "Enter Postal Code";
-    } else if (fieldProperties.fieldType === "city") {
-      return "Enter City Name";
-    } 
+      return "Enter full name";
+    } else if (fieldProperties.fieldType === "productName") {
+      return "Enter Product name";
+    } else if (fieldProperties.fieldType === "bidPrice") {
+      return "Enter starting bid price";
+    } else if (fieldProperties.fieldType === "duration") {
+      return "Enter auction duration (in minutes)";
+    } else if (fieldProperties.fieldType === "productDetails") {
+      return "Enter product description";
+    }
   };
   const label = () => {
     if (fieldProperties.fieldType === "number") {
@@ -76,28 +74,31 @@ const InputField = (props) => {
       return "Official Phone Number";
     } else if (fieldProperties.fieldType === "alt-number") {
       return "Alternate Mobile Number";
-    } else if (fieldProperties.fieldType === "dop") {
-      return "Enter DOP";
     } else if (fieldProperties.fieldType === "password") {
       return "Password";
     } else if (fieldProperties.fieldType === "fullName") {
       return "Full Name";
-    } else if (fieldProperties.fieldType === "costumerName") {
-      return "Costumer Name";
-    } else if (fieldProperties.fieldType === "problem") {
-      return "Problem";
-    } else if (fieldProperties.fieldType === "address") {
-      return "Address";
-    } else if (fieldProperties.fieldType === "postal") {
-      return "Postal Code";
-    } else if (fieldProperties.fieldType === "city") {
-      return "City";
-    } 
+    } else if (fieldProperties.fieldType === "productName") {
+      return "Product Name";
+    } else if (fieldProperties.fieldType === "bidPrice") {
+      return "Starting Bid Price";
+    } else if (fieldProperties.fieldType === "duration") {
+      return "Auction Duration";
+    } else if (fieldProperties.fieldType === "productDetails") {
+      return "Product Description";
+    }
   };
   const inputType = () => {
-    if (fieldProperties.fieldType === "number" || fieldProperties.fieldType === "postal") {
+    if (
+      fieldProperties.fieldType === "number" ||
+      fieldProperties.fieldType === "postal"
+    ) {
       return "number";
     } else if (fieldProperties.fieldType === "alt-number") {
+      return "number";
+    } else if (fieldProperties.fieldType === "bidPrice") {
+      return "number";
+    } else if (fieldProperties.fieldType === "duration") {
       return "number";
     } else if (fieldProperties.fieldType === "n-password") {
       if (passwordShown) {
