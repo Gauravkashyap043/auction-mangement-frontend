@@ -61,6 +61,8 @@ const InputField = (props) => {
       return "Enter Product name";
     } else if (fieldProperties.fieldType === "bidPrice") {
       return "Enter starting bid price";
+    } else if (fieldProperties.fieldType === "currBidPrice") {
+      return "Enter bid price";
     } else if (fieldProperties.fieldType === "duration") {
       return "Enter auction duration (in minutes)";
     } else if (fieldProperties.fieldType === "productDetails") {

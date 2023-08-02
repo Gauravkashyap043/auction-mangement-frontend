@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./login.css";
 import InputField from "../../components/InputField/InputField";
 import { Api } from "../../classes/Api";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 import { Helper } from "../../classes/Helper";
+import { AuthContext } from "../../auth/AuthContext";
 const Login = () => {
   const [loading, setLoading] = useState(false);
   const [number, setNumber] = useState("");
@@ -47,15 +48,9 @@ const Login = () => {
           Helper.handleLoginData(res, () => {
             console.log("Data Saved");
           });
-          console.log("---res-------", res);
-          if (res.status === 200) {
             setLoading(false);
             toast.success(res.message);
             navigate("/");
-          }
-          // if(res.status === 201) {
-          //
-          // }
         },
         errorFunction: (error) => {
           console.log("---error--", error);
@@ -71,13 +66,12 @@ const Login = () => {
           password: password,
         },
       };
-      Api.callApi(apiParams);
+      Api.callApi(apiParams,"application/json");
     }
   };
 
   return (
     <div className="login-container h-screen w-screen">
-      <div className="w-full h-[100px] border text-center">Login page</div>
       <div className="w-full mt-10">
         <div className="login-form w-[300px] h-[300px] border-2 m-auto flex flex-col justify-center rounded-lg">
           <div>
@@ -126,7 +120,7 @@ const Login = () => {
               {loading ? (
                 <CircularProgress color="inherit" size={20} />
               ) : (
-                "Submit"
+                "Login"
               )}
             </button>
           </div>

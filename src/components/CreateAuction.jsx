@@ -76,15 +76,12 @@ const CreateAuction = () => {
         requestMethod: "post",
         response: (res) => {
           setLoading(false);
-          if (res.status === 201) {
-            toast.success("Auction created successfully");
-          } else {
-            toast.error("Failed to create auction");
-          }
+          toast.success("Auction created successfully");
+          
         },
         errorFunction: (error) => {
           setLoading(false);
-          toast.error(error);
+          toast.error(error.error);
           console.error("Error creating auction:", error);
         },
         endFunction: () => {
@@ -98,8 +95,8 @@ const CreateAuction = () => {
           productImage,
         },
       };
-      console.log(productImage)
-      Api.callApi(apiParams);
+      console.log("productImage===============",productImage);
+      Api.callApi(apiParams,"multipart/form-data");
     }
   };
 
