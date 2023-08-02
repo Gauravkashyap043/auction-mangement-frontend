@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Auction Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Auction Management App! This app allows users to create and participate in auctions for various items. Below are the features and commands to run this React project on your machine.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Auction Listing
 
-### `npm start`
+The app displays a list of ongoing auctions, showing item images, titles, current highest bids, and time remaining for each auction. Users can click on an auction to view more detailed information about the item and its bidding history.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Auction Creation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Authenticated users can create new auction listings for items they want to sell. A form is provided for users to input item details, starting bid price, auction duration, and upload item images.
 
-### `npm test`
+### Bidding
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Authenticated users can place bids on ongoing auctions. The app implements validation to ensure that bids are higher than the current highest bid and within the auction's time limit.
 
-### `npm run build`
+### User Dashboard
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Each user has a personalized dashboard to view their active auctions (those they created) and their bidding history.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## How to Run the Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Before running the project, ensure you have Node.js and npm (Node Package Manager) installed on your machine.
 
-### `npm run eject`
+1. Clone the repository to your local machine:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/your-username/auction-management-app.git
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Navigate to the project directory:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+cd auction-management-app
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Install the project dependencies:
 
-## Learn More
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Set up environment variables:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Create a `.env` file in the root of the project and add the necessary environment variables. For example:
 
-### Code Splitting
+```plaintext
+REACT_APP_API_BASE_URL=http://localhost:5000/api
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Replace `http://localhost:5000/api` with the base URL of your backend API if it's hosted elsewhere.
 
-### Analyzing the Bundle Size
+5. Start the development server:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+npm start
+```
 
-### Making a Progressive Web App
+6. Open your web browser and go to `http://localhost:3000` to view the app.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Note: If your backend API is hosted on a different domain or port, make sure to update the `REACT_APP_API_BASE_URL` accordingly.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+That's it! You now have the Auction Management App up and running on your machine. Enjoy creating and bidding on auctions!
