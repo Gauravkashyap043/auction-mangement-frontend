@@ -42,24 +42,12 @@ cd auction-management-app
 npm install
 ```
 
-4. Set up environment variables:
-
-Create a `.env` file in the root of the project and add the necessary environment variables. For example:
-
-```plaintext
-REACT_APP_API_BASE_URL=http://localhost:5000/api
-```
-
-Replace `http://localhost:5000/api` with the base URL of your backend API if it's hosted elsewhere.
-
-5. Start the development server:
+4. Start the development server:
 
 ```bash
 npm start
 ```
 
-6. Open your web browser and go to `http://localhost:3000` to view the app.
-
-Note: If your backend API is hosted on a different domain or port, make sure to update the `REACT_APP_API_BASE_URL` accordingly.
+5. Open your web browser and go to `http://localhost:3000` to view the app.
 
 That's it! You now have the Auction Management App up and running on your machine. Enjoy creating and bidding on auctions!
