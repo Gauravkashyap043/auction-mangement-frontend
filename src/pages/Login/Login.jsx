@@ -3,7 +3,7 @@ import "./login.css";
 import InputField from "../../components/InputField/InputField";
 import { Api } from "../../classes/Api";
 import { apiEndPoints } from "../../constants/apiEndPoints";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 import { Helper } from "../../classes/Helper";
@@ -48,9 +48,10 @@ const Login = () => {
           Helper.handleLoginData(res, () => {
             console.log("Data Saved");
           });
-            setLoading(false);
-            toast.success(res.message);
-            navigate("/");
+          setLoading(false);
+          toast.success(res.message);
+          navigate("/");
+          window.location.reload()
         },
         errorFunction: (error) => {
           console.log("---error--", error);
@@ -66,7 +67,7 @@ const Login = () => {
           password: password,
         },
       };
-      Api.callApi(apiParams,"application/json");
+      Api.callApi(apiParams, "application/json");
     }
   };
 
@@ -124,6 +125,9 @@ const Login = () => {
               )}
             </button>
           </div>
+          <p className="text-center mt-2">
+            New user <Link to={"/register"} className="text-indigo-500">Register here</Link>
+          </p>
         </div>
       </div>
     </div>

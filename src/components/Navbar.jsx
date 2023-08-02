@@ -1,39 +1,45 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Api } from "../classes/Api";
 import { apiEndPoints } from "../constants/apiEndPoints";
 import { toast } from "react-toastify";
 import { Helper } from "../classes/Helper";
 import { AuthContext } from "../auth/AuthContext";
+import { CircularProgress } from "@mui/material";
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext); // Use the logout function from AuthContext
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogout = () => {
+    setLoading(true);
     const apiParams = {
       url: apiEndPoints.logout,
       requestMethod: "post",
       response: (res) => {
         console.log(res);
-        logout()
+        logout();
         toast.success(res.message);
+        setLoading(false);
         navigate("/login");
-       
       },
       errorFunction: (error) => {
+        setLoading(false);
         toast.error(error.error);
         console.error(error);
-      },  
+      },
     };
     Api.callApi(apiParams);
   };
 
-
   return (
     <header className="text-gray-600 body-font">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+        <Link
+          to={"/"}
+          className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -49,15 +55,26 @@ const Navbar = () => {
           <span className="ml-3 text-xl">Auction Ease</span>
         </Link>
         <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
-          <Link className="mr-5 hover:text-gray-900">First Link</Link>
-          <Link className="mr-5 hover:text-gray-900">Second Link</Link>
+          <NavLink to={"/"} className="mr-5 hover:text-gray-900">
+            Home
+          </NavLink>
+          <NavLink to={"/create-auction"} className="mr-5 hover:text-gray-900">
+            Create Auction
+          </NavLink>
+          <NavLink to={"/my-auction"} className="mr-5 hover:text-gray-900">
+            My Auction
+          </NavLink>
         </nav>
-        {isLoggedIn ? ( // If user is logged in, show "Logout" button
+        {!!isLoggedIn ? ( // If user is logged in, show "Logout" button
           <button
             className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
             onClick={handleLogout}
           >
-            Logout
+            {loading ? (
+                <CircularProgress color="inherit" size={20} />
+              ) : (
+                "Logout"
+              )}
             <svg
               fill="none"
               stroke="currentColor"
@@ -70,8 +87,12 @@ const Navbar = () => {
               <path d="M5 12h14M12 5l7 7-7 7"></path>
             </svg>
           </button>
-        ) : ( // If user is not logged in, show "Login" button
-          <Link to="/login" className="mr-5 hover:text-gray-900">
+        ) : (
+          // If user is not logged in, show "Login" button
+          <Link
+            to="/login"
+            className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+          >
             Login
           </Link>
         )}

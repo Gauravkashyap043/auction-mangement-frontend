@@ -5,10 +5,10 @@ import Countdown from "react-countdown";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import InputField from "../components/InputField/InputField";
+import InputField from "../../components/InputField/InputField";
 import { toast } from "react-toastify";
-import { apiEndPoints } from "../constants/apiEndPoints";
-import { Api } from "../classes/Api";
+import { apiEndPoints } from "../../constants/apiEndPoints";
+import { Api } from "../../classes/Api";
 
 const style = {
   position: "absolute",
@@ -31,10 +31,14 @@ const Home = () => {
   const [bidPriceError, setBidPriceError] = useState("");
   const [bidId, setBidId] = useState("");
   const [startingBidPrice, setStartingBidPrice] = useState("");
+  const [currentHighestBid, setCurrentHighestBid] = useState("");
 
-  const handleClose = () => setOpen(false);
-  useEffect(() => {
-    // Fetch the auction list from the API
+  const handleClose = () => {
+    setOpen(false);
+    setBidPrice("");
+  };
+
+  const getAuctionList = () => {
     axios
       .get("http://localhost:4000/auctions")
       .then((response) => {
@@ -43,6 +47,10 @@ const Home = () => {
       .catch((error) => {
         console.error("Error fetching auctions:", error);
       });
+  };
+  useEffect(() => {
+    // Fetch the auction list from the API
+    getAuctionList();
   }, []);
 
   const placeBid = () => {
@@ -65,11 +73,14 @@ const Home = () => {
           setLoading(false);
           toast.success(res.message);
           setOpen(false);
+          setBidPrice("");
+          getAuctionList();
         },
         errorFunction: (error) => {
           console.log("---error--", error);
           toast.warn(error.error);
           setLoading(false);
+          
         },
         endFunction: () => {
           console.log("End Function Called");
@@ -88,7 +99,11 @@ const Home = () => {
           <div className="flex flex-wrap">
             {auctions.map((auction, i) => (
               <div className="lg:w-1/4 md:w-1/2 p-4 w-full" key={i}>
-                <Link className="block relative h-48 rounded overflow-hidden">
+                <Link
+                  to="/auction-detail"
+                  className="block relative h-48 rounded overflow-hidden"
+                  state={auction}
+                >
                   <img
                     alt={auction.productName}
                     className="object-cover object-center w-full h-full block border border-gray-200"
@@ -109,8 +124,8 @@ const Home = () => {
                     <p>Current Highest Bid: _ _ _</p>
                   ) : (
                     <p>
-                      Current Highest Bid:{" "}
-                      ₹ {auction.bids[auction.bids.length - 1]?.bidAmount}
+                      Current Highest Bid: ₹{" "}
+                      {auction.bids[auction.bids.length - 1]?.bidAmount}
                     </p>
                   )}
                   <p>
@@ -123,6 +138,9 @@ const Home = () => {
                       onClick={() => (
                         setOpen(true),
                         setBidId(auction._id),
+                        setCurrentHighestBid(
+                          auction.bids[auction.bids.length - 1]?.bidAmount
+                        ),
                         setStartingBidPrice(auction.startingBidPrice)
                       )}
                       disabled={new Date(auction.auctionEndTime) <= new Date()}
@@ -144,8 +162,11 @@ const Home = () => {
       >
         <Box sx={style}>
           <div>
-            <p>{bidId}</p>
-            <p>{startingBidPrice}</p>
+            <p>Starting Bid Price : {startingBidPrice}</p>
+            <p>
+              Current Highest Bid :{" "}
+              {currentHighestBid ? currentHighestBid : "_ _ _"}
+            </p>
             <InputField
               onChange={(e) =>
                 setBidPrice(e.target.value) || setBidPriceError()
